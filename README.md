@@ -6,7 +6,7 @@ Generates a pacman hook to update Linux version in the grub configuration file. 
 ### Prerequisites
 To use this script you need:
 * [pacman](https://www.archlinux.org/pacman/)
-* A grub configuration file passed as ENV variable (by default in /boot/grub/grub.cfg)
+* A grub configuration file passed as ENV variable (by default in `/boot/grub/grub.cfg`)
 
 ### How to use It
 By default:
@@ -25,12 +25,12 @@ GRUB_CFG=/boot/grub.cfg ./createPacmanLinuxHook.sh
 ```
 
 ### What do we create executing the script?
-* The pacman hook in /etc/pacman.d/hooks/linux-post.hook
-* The script to be executed with a Linux update in /usr/local/bin/linux-post-hook.sh
+* The pacman hook in `/etc/pacman.d/hooks/linux-post.hook`
+* The script to be executed with a Linux update in `/usr/local/bin/linux-post-hook.sh`
 
 ### After updating Linux...
 
-If we have something like this in the `/boot/grub/grub.cfg` (with Linux 4.10.8-1):
+If we have something like this in the grub config file (with Linux 4.10.8-1):
 
 ```
 menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-43ef0b61-66cc-4d35-ab56-694452acbce8' {
