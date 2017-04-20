@@ -47,12 +47,12 @@ EOF
 
 echo "Generating hook script ..."
 
-sudo tee <<'EOF' "${hook_script}" &>/dev/null
+sudo tee <<EOF "${hook_script}" &>/dev/null
 #!/bin/bash
 
 
-linux_version=$(uname -r)
-echo "Updating Linux version in grub to ${linux_version} ..."
+linux_version="\$(uname -r)"
+echo "Updating Linux version in grub to \${linux_version} ..."
 
 sed -i.bak 's/\(Linux\s\+\)\(linux\|\(\w\+\.\)\{2\}\(\w\|-\)\+\)/\1'"\${linux_version}"'/g' ${grub_cfg}
 EOF
