@@ -6,14 +6,22 @@ Generates a pacman hook to update Linux version in the grub configuration file. 
 ### Prerequisites
 To use this script you need:
 * [pacman](https://www.archlinux.org/pacman/)
-* A grub configuration file in /boot/grub/grub.cfg
+* A grub configuration file passed as ENV variable (by default in /boot/grub/grub.cfg)
 
 ### How to use It
+By default:
 
 ```
 git clone git@github.com:carmilso/pacman-linux-hook.git
 cd pacman-linux-hook
 ./createPacmanLinuxHook.sh
+```
+Passing grub configuration file as ENV variable:
+
+```
+git clone git@github.com:carmilso/pacman-linux-hook.git
+cd pacman-linux-hook
+GRUB_CFG=/boot/grub.cfg ./createPacmanLinuxHook.sh
 ```
 
 ### What do we create executing the script?
