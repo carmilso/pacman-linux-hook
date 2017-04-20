@@ -5,6 +5,7 @@
 # - The post-install script that updates the linux version in the grub config
 
 
+grub_cfg="${GRUB_CFG:-/boot/grub/grub.cfg}"
 hook_pacman="/etc/pacman.d/hooks/linux-post.hook"
 hook_script="/usr/local/bin/linux-post-hook.sh"
 
@@ -24,7 +25,7 @@ echo ""
 
 which pacman &>/dev/null || die "pacman not installed. Exiting ..."
 
-test -f /boot/grub/grub.cfg || die "Boot config file not available. Please, create one before activating the hook. Exiting ..."
+test -f "${grub_cfg}" || die "Boot config file '${grub_cfg}' not available. Please, create it before activating the hook. Exiting ..."
 
 sudo mkdir -p "${hook_pacman%/*}"
 sudo mkdir -p "${hook_script%/*}"
@@ -53,7 +54,7 @@ sudo tee <<'EOF' "${hook_script}" &>/dev/null
 linux_version=$(uname -r)
 echo "Updating Linux version in grub to ${linux_version} ..."
 
-sed -i.bak 's/\(Linux\s\+\)\(linux\|\(\w\+\.\)\{2\}\(\w\|-\)\+\)/\1'"${linux_version}"'/g' /boot/grub/grub.cfg
+sed -i.bak 's/\(Linux\s\+\)\(linux\|\(\w\+\.\)\{2\}\(\w\|-\)\+\)/\1'"\${linux_version}"'/g' ${grub_cfg}
 EOF
 
 sudo chmod +x "${hook_script}"
