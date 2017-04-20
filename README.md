@@ -34,40 +34,40 @@ If we have something like this in the `/boot/grub/grub.cfg` (with Linux 4.10.8-1
 
 ```
 menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-43ef0b61-66cc-4d35-ab56-694452acbce8' {
-	load_video
-	set gfxpayload=keep
-	insmod gzio
-	insmod part_gpt
-	insmod fat
-	set root='hd0,gpt1'
-	if [ x$feature_platform_search_hint = xy ]; then
-	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt1 --hint-efi=hd0,gpt1 --hint-baremetal=ahci0,gpt1  902A-9AB7
-	else
-	  search --no-floppy --fs-uuid --set=root 902A-9AB7
-	fi
-	echo	'Loading Linux 4.10.8-1-x86_64...'
-	linux	/vmlinuz-linux root=UUID=43ef0b61-66cc-4d35-ab56-694452acbce8 rw  quiet
-	echo	'Loading initial ramdisk...'
-	initrd  /initramfs-linux.img
+  load_video
+  set gfxpayload=keep
+  insmod gzio
+  insmod part_gpt
+  insmod fat
+  set root='hd0,gpt1'
+  if [ x$feature_platform_search_hint = xy ]; then
+    search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt1 --hint-efi=hd0,gpt1 --hint-baremetal=ahci0,gpt1  902A-9AB7
+  else
+    search --no-floppy --fs-uuid --set=root 902A-9AB7
+  fi
+  echo  'Loading Linux 4.10.8-1-ARCH...'
+  linux /vmlinuz-linux root=UUID=43ef0b61-66cc-4d35-ab56-694452acbce8 rw  quiet
+  echo  'Loading initial ramdisk...'
+  initrd  /initramfs-linux.img
 ```
 
 And we update Linux (to 4.10.9-1), the hook will be executed and We will have this (in all the grub entries):
 
 ```
 menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-43ef0b61-66cc-4d35-ab56-694452acbce8' {
-	load_video
-	set gfxpayload=keep
-	insmod gzio
-	insmod part_gpt
-	insmod fat
-	set root='hd0,gpt1'
-	if [ x$feature_platform_search_hint = xy ]; then
-	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt1 --hint-efi=hd0,gpt1 --hint-baremetal=ahci0,gpt1  902A-9AB7
-	else
-	  search --no-floppy --fs-uuid --set=root 902A-9AB7
-	fi
-	echo	'Loading Linux 4.10.9-1-x86_64...'
-	linux	/vmlinuz-linux root=UUID=43ef0b61-66cc-4d35-ab56-694452acbce8 rw  quiet
-	echo	'Loading initial ramdisk...'
-	initrd  /initramfs-linux.img
+  load_video
+  set gfxpayload=keep
+  insmod gzio
+  insmod part_gpt
+  insmod fat
+  set root='hd0,gpt1'
+  if [ x$feature_platform_search_hint = xy ]; then
+    search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt1 --hint-efi=hd0,gpt1 --hint-baremetal=ahci0,gpt1  902A-9AB7
+  else
+    search --no-floppy --fs-uuid --set=root 902A-9AB7
+  fi
+  echo  'Loading Linux 4.10.9-1-ARCH...'
+  linux /vmlinuz-linux root=UUID=43ef0b61-66cc-4d35-ab56-694452acbce8 rw  quiet
+  echo  'Loading initial ramdisk...'
+  initrd  /initramfs-linux.img
 ```
