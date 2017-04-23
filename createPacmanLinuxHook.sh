@@ -51,7 +51,7 @@ sudo tee <<EOF "${hook_script}" &>/dev/null
 #!/bin/bash
 
 
-linux_version="\$(pacman -Q linux | tr -s ' ' | cut -d' ' -f2)"
+linux_version="\$(pacman -Q linux | awk '{ print \$2 }')"
 echo "Updating Linux version in grub to \${linux_version} ..."
 
 sed -i.bak 's/\(Linux\s\+\)\(linux\|\(\w\+\.\)\{2\}\(\w\|-\)\+\)/\1'"\${linux_version}"'/g' ${grub_cfg}
