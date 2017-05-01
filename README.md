@@ -45,7 +45,7 @@ menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $me
   else
     search --no-floppy --fs-uuid --set=root 902A-9AB7
   fi
-  echo  'Loading Linux 4.10.8-1-ARCH...'
+  echo  'Loading Linux 4.10.8-1...'
   linux /vmlinuz-linux root=UUID=43ef0b61-66cc-4d35-ab56-694452acbce8 rw  quiet
   echo  'Loading initial ramdisk...'
   initrd  /initramfs-linux.img
@@ -66,7 +66,7 @@ menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $me
   else
     search --no-floppy --fs-uuid --set=root 902A-9AB7
   fi
-  echo  'Loading Linux 4.10.9-1-ARCH...'
+  echo  'Loading Linux 4.10.9-1...'
   linux /vmlinuz-linux root=UUID=43ef0b61-66cc-4d35-ab56-694452acbce8 rw  quiet
   echo  'Loading initial ramdisk...'
   initrd  /initramfs-linux.img
