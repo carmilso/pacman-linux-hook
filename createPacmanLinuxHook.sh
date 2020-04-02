@@ -1,29 +1,31 @@
 #!/bin/bash
 
 # This script creates:
-# - The post-install hook in /etc/pacmand.d/hooks/linux-post.hook
-# - The post-install script that updates the linux version in the grub config
+# - The post-install pacman hook that will run every time the linux package is updated
+# - The script that updates the linux version in the grub config file
 
 
 grub_cfg="${GRUB_CFG:-/boot/grub/grub.cfg}"
 hook_pacman="/etc/pacman.d/hooks/linux-post.hook"
-hook_script="/usr/local/bin/linux-post-hook.sh"
+hook_script="/usr/local/bin/linux-post-install-pacman-hook.sh"
 
 die() {
   echo "$@"
   exit 1
 }
 
-echo ""
-echo "##########       ##         ##########    ##      ##         ##         ###     ##"
-echo "##      ##      ####        ##            ###    ###        ####        ## ##   ##"
-echo "##########     ##  ##       ##            ## #### ##       ##  ##       ##  ##  ##"
-echo "##            ########      ##            ##      ##      ########      ##   ## ##"
-echo "##           ##      ##     ##            ##      ##     ##      ##     ##    ####"
-echo "##          ##        ##    ##########    ##      ##    ##        ##    ##     ###"
-echo ""
+cat << EOF
 
-which pacman &>/dev/null || die "pacman not installed. Exiting ..."
+  ____   _    ____ __  __    _    _   _
+ |  _ \ / \  / ___|  \/  |  / \  | \ | |
+ | |_) / _ \| |   | |\/| | / _ \ |  \| |
+ |  __/ ___ \ |___| |  | |/ ___ \| |\  |
+ |_| /_/   \_\____|_|  |_/_/   \_\_| \_|
+
+
+EOF
+
+command -v pacman &>/dev/null || die "pacman not installed. Exiting ..."
 
 test -f "${grub_cfg}" || die "Boot config file '${grub_cfg}' not available. Please, create it before activating the hook. Exiting ..."
 
@@ -37,24 +39,27 @@ sudo tee <<EOF "${hook_pacman}" &>/dev/null
 Operation = Install
 Operation = Upgrade
 Type = Package
-Target = linux*
+Target = linux
 
 [Action]
-Description = Update Linux version in the grub
+Description = Update Linux version in the grub config file
 When = PostTransaction
 Exec = ${hook_script}
 EOF
 
 echo "Generating hook script ..."
 
-sudo tee <<EOF "${hook_script}" &>/dev/null
+sudo tee << EOF "${hook_script}" &>/dev/null
 #!/bin/bash
 
 
 linux_version="\$(pacman -Q linux | awk '{ print \$2 }')"
 echo "Updating Linux version in grub to \${linux_version} ..."
 
-sed -i.bak 's/\(Linux\s\+\)\(linux\|\(\w\+\.\)\{2\}\(\w\|-\)\+\)/\1'"\${linux_version}"'/g' ${grub_cfg}
+sed -i.bak -E \\
+  -e 's/Linux\s+linux/Linux '"\${linux_version}"'/g' \\
+  -e 's/Linux\s+([0-9]+\.?){3}(\w|-|[0-9])*/Linux '"\${linux_version}"'/g' \\
+  ${grub_cfg}
 EOF
 
 sudo chmod +x "${hook_script}"
