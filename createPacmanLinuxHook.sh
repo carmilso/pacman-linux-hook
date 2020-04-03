@@ -54,7 +54,6 @@ sudo tee << EOF "${hook_script}" &>/dev/null
 
 
 linux_version="\$(pacman -Q linux | awk '{ print \$2 }')"
-echo "Updating Linux version in grub to \${linux_version} ..."
 
 sed -i.bak -E \\
   -e 's/Linux\s+linux/Linux '"\${linux_version}"'/g' \\
