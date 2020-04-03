@@ -38,13 +38,13 @@ There are two possible scenarios:
   * The hook has never been executed before
   * The grub configuration file already contains the Linux version
 
-In this first case we should have something similar to this inside the grub configuration file:
+Before the update, in this first case we should have something similar to this inside the grub configuration file:
 
 ```
 (...)
 menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-43ef0b61-66cc-4d35-ab56-694452acbce8' {
   (...)
-	echo	'Loading Linux linux ...'
+  echo 'Loading Linux linux ...'
   (...)
 }
 (...)
@@ -56,19 +56,19 @@ Therefore, the result after running the script will be (in case Linux is being u
 (...)
 menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-43ef0b61-66cc-4d35-ab56-694452acbce8' {
   (...)
-	echo	'Loading Linux 5.5.13.arch1-1 ...'
+  echo 'Loading Linux 5.5.13.arch1-1 ...'
   (...)
 }
 (...)
 ```
 
-In the second case we will already have the Linux version in the grub configuration file since the script has been executed before:
+Before the update, in the second case we will already have the Linux version in the grub configuration file since the script has been executed before:
 
 ```
 (...)
 menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-43ef0b61-66cc-4d35-ab56-694452acbce8' {
   (...)
-	echo	'Loading Linux 5.5.12.arch1-1 ...'
+  echo  'Loading Linux 5.5.12.arch1-1 ...'
   (...)
 }
 (...)
@@ -80,7 +80,7 @@ Therefore, the result after running the script will be (in case Linux is being u
 (...)
 menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-43ef0b61-66cc-4d35-ab56-694452acbce8' {
   (...)
-	echo	'Loading Linux 5.5.13.arch1-1 ...'
+  echo  'Loading Linux 5.5.13.arch1-1 ...'
   (...)
 }
 (...)
