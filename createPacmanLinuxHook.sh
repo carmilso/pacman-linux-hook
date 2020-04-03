@@ -52,7 +52,6 @@ echo "Generating hook script ..."
 sudo tee << EOF "${hook_script}" &>/dev/null
 #!/bin/bash
 
-
 linux_version="\$(pacman -Q linux | awk '{ print \$2 }')"
 
 sed -i.bak -E \\
