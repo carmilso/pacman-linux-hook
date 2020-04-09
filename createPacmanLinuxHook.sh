@@ -42,7 +42,7 @@ Type = Package
 Target = linux
 
 [Action]
-Description = Updating Linux version in the grub configuration file
+Description = Updating Linux version in the grub configuration file...
 When = PostTransaction
 Exec = ${hook_script}
 EOF
